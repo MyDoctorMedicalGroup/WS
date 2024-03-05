@@ -61,6 +61,14 @@ def dividir_lista(lista, n):
     k, m = divmod(len(lista), n)
     return (lista[i * k + min(i, m):(i + 1) * k + min(i + 1, m)] for i in range(n))
 
+def dividir_diccionario(dic, n):
+    keys = list(dic.keys())
+    division = len(keys) // n
+    if division==0:
+      division=1
+    print(division)
+    return [dict((k, dic[k]) for k in keys[i:i + division]) for i in range(0, len(keys), division)]
+
 def send_email(files_list=[]):
   sender_address = 'mdmgdata18@gmail.com'
   sender_pass = 'zlhx ulzd ojtx sfkv'
