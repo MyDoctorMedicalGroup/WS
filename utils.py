@@ -73,6 +73,20 @@ def espera(driver,tiempo,com):
             pass
 
 def dividir_lista(lista, n):
+    """Make the list be divided in len(lista) // n parts for getting elements for each window in driver
+    For example: if there are 11 elements in the list and n = 3, it will create 4 parts -> 3 with 3 elements and 1 with 2 elements
+
+    Parameters
+    ----------
+    lista : list
+        The input list with the total elements
+    n : int
+        The number that will divide the total elements
+
+    Returns
+    -------
+    None
+    """
     k, m = divmod(len(lista), n)
     return (lista[i * k + min(i, m):(i + 1) * k + min(i + 1, m)] for i in range(n))
 
