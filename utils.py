@@ -43,7 +43,22 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 import threading
 
-def espera(driver,tiempo,com,excep=""):
+def espera(driver,tiempo,com):
+    """Make the driver wait for specified seconds (at most) while executing an action
+
+    Parameters
+    ----------
+    driver : WebDriver
+        The driver what is being used
+    tiempo : int
+        The time (in seconds) multiplied by 5 is the time will the driver wait at most (checking each 5 seconds)
+    com : str
+        The action the driver will try
+
+    Returns
+    -------
+    None
+    """
     a = True
     p = 0
     while a==True and p<=tiempo:
