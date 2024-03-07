@@ -73,8 +73,11 @@ def espera(driver,tiempo,com):
             pass
 
 def dividir_lista(lista, n):
-    """Make the list be divided in len(lista) // n parts for getting elements for each window in driver
-    For example: if there are 11 elements in the list and n = 3, it will create 4 parts -> 3 with 3 elements and 1 with 2 elements
+    """Make the list be divided in lenght of the list by n (approximately) for getting elements for each window in driver
+    if the list have 12 elements -> [1, 2, 3, ..., 12]
+    Example 1: and n = 3, it will create 4 parts -> 4 with 3 elements
+    Example 2: and n = 4, it will create 3 parts -> 3 with 4 elements
+    Example 3: and n = 5, it will create 3 parts -> 2 with 5 elements and 1 with 2 elements
 
     Parameters
     ----------
@@ -91,6 +94,21 @@ def dividir_lista(lista, n):
     return (lista[i * k + min(i, m):(i + 1) * k + min(i + 1, m)] for i in range(n))
 
 def dividir_diccionario(dic, n):
+    """Make the dic be divided in the number of IDs (with its elements) by n (approximately) for getting elements for each window in driver
+    Example 1: if there are 12 elements in the list and n = 3, it will create 4 parts -> 4 with 3 elements
+    Example 2: if there are 11 elements in the list and n = 3, it will create 4 parts -> 3 with 3 elements and 1 with 2 elements
+
+    Parameters
+    ----------
+    dic : dictionary
+        The input list with the total elements
+    n : int
+        The number that will divide the total elements
+
+    Returns
+    -------
+    None
+    """
     keys = list(dic.keys())
     division = len(keys) // n
     if division==0:
