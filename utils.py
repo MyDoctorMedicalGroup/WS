@@ -75,9 +75,9 @@ def espera(driver,tiempo,com):
 def dividir_lista(lista, n):
     """Make the list be divided in lenght of the list by n (approximately) for getting elements for each window in driver
     if the list have 12 elements -> [1, 2, 3, ..., 12]
-    Example 1: and n = 3, it will create 4 parts -> 4 with 3 elements
-    Example 2: and n = 4, it will create 3 parts -> 3 with 4 elements
-    Example 3: and n = 5, it will create 3 parts -> 2 with 5 elements and 1 with 2 elements
+    Example 1: and n = 3, it will create 4 parts -> 4 parts with 3 elements
+    Example 2: and n = 4, it will create 3 parts -> 3 parts with 4 elements
+    Example 3: and n = 5, it will create 3 parts -> 2 parts with 5 elements and 1 with 2 elements
 
     Parameters
     ----------
@@ -88,15 +88,18 @@ def dividir_lista(lista, n):
 
     Returns
     -------
-    None
+    The parts calculated
+        Note: one part = one window for driver
     """
     k, m = divmod(len(lista), n)
     return (lista[i * k + min(i, m):(i + 1) * k + min(i + 1, m)] for i in range(n))
 
 def dividir_diccionario(dic, n):
-    """Make the dic be divided in the number of IDs (with its elements) by n (approximately) for getting elements for each window in driver
-    Example 1: if there are 12 elements in the list and n = 3, it will create 4 parts -> 4 with 3 elements
-    Example 2: if there are 11 elements in the list and n = 3, it will create 4 parts -> 3 with 3 elements and 1 with 2 elements
+    """Make the dic be divided in the number of keys (with its elements) by n (approximately) for getting elements for each window in driver
+    if the dictionary have 12 keys -> {"key1": [1,2,...], "key2": [3,6,...], ..., "key12": [9,1,...]}
+    Example 1: and n = 3, it will create 4 parts -> 4 parts with 3 keys and its respective elements
+    Example 2: and n = 4, it will create 3 parts -> 3 parts with 4 keys and its respective elements
+    Example 3: and n = 5, it will create 3 parts -> 2 parts with 5 keys and its respective elements and 1 part with 2 keys and its respective elements
 
     Parameters
     ----------
@@ -107,7 +110,8 @@ def dividir_diccionario(dic, n):
 
     Returns
     -------
-    None
+    The parts calculated
+        Note: one part = one window for driver
     """
     keys = list(dic.keys())
     division = len(keys) // n
@@ -116,20 +120,34 @@ def dividir_diccionario(dic, n):
     print(division)
     return [dict((k, dic[k]) for k in keys[i:i + division]) for i in range(0, len(keys), division)]
 
-def send_email(files_list=[]):
-  sender_address = 'mdmgdata18@gmail.com'
-  sender_pass = 'zlhx ulzd ojtx sfkv'
+def send_email(address, password, files_list=[], emails_list=[]):
+    """Send an email (Gmail only) depending if there are files listed or not
+    Parameters
+    ----------
+    address: str
+        Gmail that will send the email
+    password: str
+        third party password that is created in https://myaccount.google.com/apppasswords (remember to have 2 step pass active and remember your API key)
+    files_list: list
+        Files that will be send
+    emails_list: list
+        List of emails that will recieve the email sent
 
-  #Iniciamos la conexión al servidor de correo electrónico
-  session = smtplib.SMTP('smtp.gmail.com',587)
-  #session = smtplib.SMTP('smtp.office365.com',587)
-  session.starttls()
-  session.login(sender_address, sender_pass)
-  files=files_list
-
-  #Obtenemos una dirección de correo electrónico
-  for correo in ['nathobi@mydoctortampa.com']:
-      #Preparamos el correo electrónico
+    Returns
+    -------
+    None
+    """
+    
+    sender_address = address
+    sender_pass = password
+    session = smtplib.SMTP('smtp.gmail.com',587)
+    #session = smtplib.SMTP('smtp.office365.com',587)
+    session.starttls()
+    session.login(sender_address, sender_pass)
+    files=files_list
+    
+    #Sending
+    for correo in emails_list:
       message=MIMEMultipart()
       message['From'] = sender_address
       if len(files_list)>0:
@@ -147,8 +165,7 @@ def send_email(files_list=[]):
         message['Subject'] = 'Fallo en script de Athena reports - Zona no válida'
         mail_content = 'Este correo es para indicarle que el script de Athena no completó su labor debido a no pertenecer a una zona IP válida'
         message.attach(MIMEText(mail_content,'plain'))
-      #Enviamos el correo
       text = message.as_string()
       session.sendmail(sender_address, correo, text)
       print("Correo enviado")
-  session.quit()
+    session.quit()
