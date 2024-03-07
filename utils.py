@@ -10,6 +10,7 @@ import json
 from datetime import datetime
 import matplotlib.pyplot as plt
 from google.colab import files
+import subprocess
 
 # Correo
 import smtplib
