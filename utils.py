@@ -237,13 +237,13 @@ def athena_enter(k,ruta_descargas,options,user,contra):
     while a==True and red<=2:
       try:
           driver.get('https://athenanet.athenahealth.com/')
-          #print("yea", k)
+          print("yea", k)
           time.sleep(10)
           #driver.save_screenshot("aqui.png")
           #plt.imshow(plt.imread("aqui.png"))
           driver.find_element(By.XPATH, '/html/body/form/div/div[2]/div/div[2]/div[1]/span/input').send_keys(user)
           driver.find_element(By.XPATH, '/html/body/form/div/div[2]/div/div[2]/div[2]/span/input').send_keys(contra)
-          #print("yea2", k)
+          print("yea2", k)
           driver.find_element(By.XPATH, '/html/body/form/div/div[2]/div/input').click()
           print("Go #", k)
           time.sleep(5)
