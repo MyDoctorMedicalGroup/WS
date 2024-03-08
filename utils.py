@@ -235,7 +235,7 @@ def athena_enter(k,ruta_descargas,options,user,contra):
     a = True
     red=0
     while a==True and red<=2:
-      try:
+      #try:
           driver.get('https://athenanet.athenahealth.com/')
           print("yea", k)
           time.sleep(10)
@@ -251,10 +251,10 @@ def athena_enter(k,ruta_descargas,options,user,contra):
           #plt.imshow(plt.imread("aqui.png"))
           driver.find_element(By.XPATH, '/html/body/form/div/div[2]/div/input').click()
           a = False
-      except:
-          print("Oh no", k)
-          driver.quit()
-          time.sleep(5)
-          red+=1
-          driver = webdriver.Edge(options=options)
+      #except:
+      #    print("Oh no", k)
+      #    driver.quit()
+      #    time.sleep(5)
+      #    red+=1
+      #    driver = webdriver.Edge(options=options)
     return driver
