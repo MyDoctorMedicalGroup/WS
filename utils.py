@@ -205,3 +205,36 @@ def opciones_driver():
     }
     options.add_experimental_option("prefs", prefs)
     return options, ruta_descargas
+
+def athena_enter(driver,k,ruta_descargas,options,user,contra):
+    time.sleep(k*10)
+    print("Entering with window #", k)
+    driver = webdriver.Chrome(options=options)
+    #print("va")
+    os.chdir(ruta_descargas)
+    #print("va2")
+    a = True
+    red=0
+    while a==True and red<=2:
+      try:
+          driver.get('https://athenanet.athenahealth.com/')
+          #print("yea", k)
+          time.sleep(10)
+          #driver.save_screenshot("aqui.png")
+          #plt.imshow(plt.imread("aqui.png"))
+          driver.find_element(By.XPATH, '/html/body/form/div/div[2]/div/div[2]/div[1]/span/input').send_keys(user)
+          driver.find_element(By.XPATH, '/html/body/form/div/div[2]/div/div[2]/div[2]/span/input').send_keys(contra)
+          #print("yea2", k)
+          driver.find_element(By.XPATH, '/html/body/form/div/div[2]/div/input').click()
+          print("Go #", k)
+          time.sleep(5)
+          #driver.save_screenshot(f"aqui_{k}.png")
+          #plt.imshow(plt.imread("aqui.png"))
+          driver.find_element(By.XPATH, '/html/body/form/div/div[2]/div/input').click()
+          a = False
+      except:
+          print("Oh no", k)
+          driver.quit()
+          time.sleep(5)
+          red+=1
+          driver = webdriver.Edge(options=options)
