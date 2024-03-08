@@ -206,7 +206,26 @@ def opciones_driver():
     options.add_experimental_option("prefs", prefs)
     return options, ruta_descargas
 
-def athena_enter(driver,k,ruta_descargas,options,user,contra):
+def athena_enter(k,ruta_descargas,options,user,contra):
+    """Enter to Athena website
+    Parameters
+    ----------
+    k: int
+        number of window
+    ruta_descargas: str
+        Download path
+    options: WebDriver options
+        Webdriver options
+    user: str
+        Athena user
+    contra: str
+        Athena password
+
+    Returns
+    -------
+    driver: WebDriver
+        Webdriver with Athena website in
+    """
     time.sleep(k*10)
     print("Entering with window #", k)
     driver = webdriver.Chrome(options=options)
@@ -238,3 +257,4 @@ def athena_enter(driver,k,ruta_descargas,options,user,contra):
           time.sleep(5)
           red+=1
           driver = webdriver.Edge(options=options)
+    return driver
