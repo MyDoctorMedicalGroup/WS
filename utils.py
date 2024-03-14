@@ -9,7 +9,11 @@ import shutil
 import json
 from datetime import datetime
 import matplotlib.pyplot as plt
-from google.colab import files
+try:
+    from google.colab import files
+    from google.colab import userdata
+except:
+    pass
 import subprocess
 
 # Correo
@@ -21,7 +25,6 @@ from email.mime.text import MIMEText
 from os.path import basename
 
 # Sharepoint
-from google.colab import userdata
 from shareplum import Site
 from shareplum import Office365
 from shareplum.site import Version
