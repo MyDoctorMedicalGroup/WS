@@ -9,11 +9,8 @@ import shutil
 import json
 from datetime import datetime
 import matplotlib.pyplot as plt
-try:
-    from google.colab import files
-    from google.colab import userdata
-except:
-    pass
+from google.colab import files
+from google.colab import userdata
 import subprocess
 
 # Correo
@@ -47,7 +44,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 import threading
 
-def espera(driver,tiempo,com):
+def espera(driver,tiempo,com,excep=""):
     """Make the driver wait for specified seconds (at most) while executing an action
 
     Parameters
@@ -58,7 +55,8 @@ def espera(driver,tiempo,com):
         The time (in seconds) multiplied by 5 is the time will the driver wait at most (checking each 5 seconds)
     com : str
         The action the driver will try
-
+    excep : str
+        The action that will be an exception (For "Athena_Medical_Records" only)
     Returns
     -------
     None
@@ -71,6 +69,14 @@ def espera(driver,tiempo,com):
             a = False
             #print("al fin...")
         except:
+            if excep!="":
+                try:
+                    exec(excep)
+                    if len(b)==1:
+                        a=False
+                        return False
+                except:
+                    pass
             time.sleep(5)
             #print("esperando")
             p += 1
